@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -14,21 +14,42 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import { Post } from '../../model';
-import { DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
+import uuid from 'uuid/v4';
 
-
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        container: {
+            display: 'flex',
+            flexWrap: 'wrap',
+        },
+        textField: {
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+        },
+    }),
+);
 export interface AddPostDialogProps {
     open: boolean;
     onClose: (value: Post | null) => void;
 }
 
 export const AddPostDialog = ({ onClose, open }: AddPostDialogProps) => {
+    const [title, setTitle] = useState("");
+    const [text, setText] = useState("");
+    const styles = useStyles();
+
     const handleClose = () => {
         onClose(null);
     };
 
     const handleAccept = () => {
-        onClose(null);
+        onClose({
+            id: uuid(),
+            image: "/images/logo.jpg",
+            text,
+            title
+        });
     };
 
     return (
@@ -36,6 +57,26 @@ export const AddPostDialog = ({ onClose, open }: AddPostDialogProps) => {
             <DialogTitle id="add-post-dialog-title">Add post</DialogTitle>
             <DialogContent>
                 <DialogContentText id="add-post-dialog-description">Write new post</DialogContentText>
+                <div className={styles.container}>
+                    <TextField
+                        id="post-title"
+                        className={styles.textField}
+                        label="Title"
+                        value={title}
+                        onChange={evt => setTitle(evt.target.value)}
+                        margin="normal"
+                    />
+                    <TextField
+                        id="post-text"
+                        className={styles.textField}
+                        label="Text"
+                        value={text}
+                        onChange={evt => setText(evt.target.value)}
+                        margin="normal"
+                        multiline
+                        rows="5"
+                    />
+                </div>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">Cancel</Button>

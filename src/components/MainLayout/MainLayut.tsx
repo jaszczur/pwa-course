@@ -77,7 +77,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const MainLayout: React.FC = () => {
+export interface MainLayoutProps {
+    title: string
+}
+
+export const MainLayout: React.FC<MainLayoutProps> = ({title}) => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -133,9 +137,7 @@ const MainLayout: React.FC = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Persistent drawer
-          </Typography>
+                    <Typography variant="h6" noWrap>{title}</Typography>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -175,5 +177,3 @@ const MainLayout: React.FC = () => {
         </div>
     );
 }
-
-export default MainLayout;
