@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Fab, Theme, Grid, Box, Container } from '@material-ui/core';
+import { Fab, Theme, Grid, } from '@material-ui/core';
 import { MediaCard } from '../../components/MediaCard/MediaCard';
 import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles, createStyles } from '@material-ui/styles';

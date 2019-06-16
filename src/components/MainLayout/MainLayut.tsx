@@ -16,8 +16,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HelpIcon from '@material-ui/icons/Help';
-import MailIcon from '@material-ui/icons/Mail';
+import ListIcon from '@material-ui/icons/List';
 import { Feed, Help } from '../../views';
+import { EnableNotificationsSwitch } from '../EnableNotificationsSwitch/EnableNotificationsSwitch';
 
 const drawerWidth = 240;
 
@@ -81,7 +82,7 @@ export interface MainLayoutProps {
     title: string
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({title}) => {
+export const MainLayout: React.FC<MainLayoutProps> = ({ title }) => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -105,11 +106,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({title}) => {
     const renderView = () => {
         if (currentView === "feed") {
             return (
-                <Feed/>
+                <Feed />
             );
         } else if (currentView === "help") {
             return (
-                <Help/>
+                <Help />
             );
         } else {
             return (
@@ -157,7 +158,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({title}) => {
                 <Divider />
                 <List>
                     <ListItem button onClick={() => switchView("feed")}>
-                        <ListItemIcon><MailIcon /></ListItemIcon>
+                        <ListItemIcon><ListIcon /></ListItemIcon>
                         <ListItemText primary="Feed" />
                     </ListItem>
                     <ListItem button onClick={() => switchView("help")}>
@@ -165,6 +166,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({title}) => {
                         <ListItemText primary="Help" />
                     </ListItem>
                 </List>
+                <Divider/>
+                <EnableNotificationsSwitch/>
             </Drawer>
             <main
                 className={clsx(classes.content, {
